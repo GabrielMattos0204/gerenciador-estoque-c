@@ -1,0 +1,8 @@
+#Executáveis
+*.exe
+*.out
+*.o
+
+#Arquivos de dados
+*.dat
+*txt
