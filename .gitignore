@@ -5,4 +5,8 @@
 
 #Arquivos de dados
 *.dat
-*txt
+*.txt
+
+# Pastas de IDEs e Editores (recomendado)
+.vscode/
+.idea/
