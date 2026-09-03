@@ -29,11 +29,11 @@ Passo a passo
 Clone o repositório:
 
 Bash
-git clone https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
+git clone [https://github.com/GabrielMattos0204/gerenciador-estoque-c]
 Acesse a pasta do projeto:
 
 Bash
-cd SEU_REPOSITORIO
+cd gerenciador-estoque-c
 Compile o código fonte:
 
 Bash
