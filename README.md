@@ -59,6 +59,6 @@ estoque.exe
 [ ] Refatorar o código aplicando conceitos de modularização em múltiplos arquivos (.h e .c)
 
 👨‍💻 Sobre Mim
-Olá meu nome é Gabriel! Sou estudante do 3º semestre de Análise e Desenvolvimento de Sistemas (ADS), apaixonado por lógica de programação e linguagem C e Java. Busco minha primeira oportunidade como Estagiário de TI / Desenvolvimento.
+Olá meu nome é Gabriel! Sou estudante do 4º semestre de Análise e Desenvolvimento de Sistemas (ADS), apaixonado por lógica de programação e linguagem C e Java. Busco minha primeira oportunidade como Estagiário de TI / Desenvolvimento.
 
 E-mail: gabrielmattos99201@gmail.com
