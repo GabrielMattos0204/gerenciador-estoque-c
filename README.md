@@ -1,66 +1,52 @@
-📦 Gerenciador de Estoque em C
-Um sistema em linha de comando (CLI) desenvolvido em Linguagem C para gerenciamento simples e eficiente de inventário de produtos. O projeto utiliza persistência de dados em arquivos binários (.dat), manipulação de ponteiros, alocação de memória e estruturas de dados.
+# Gerenciador de Estoque em C
 
-Projetado como parte do meu aprendizado prático no curso de Análise e Desenvolvimento de Sistemas (ADS).
+Sistema de linha de comando (CLI) em C para controle de inventário de produtos, com persistência em arquivo binário. Projeto de estudo do curso de Análise e Desenvolvimento de Sistemas (ADS).
 
-🚀 Funcionalidades
-[x] Cadastrar Produto: Insere novos produtos gravando diretamente em arquivo binário (.dat).
+## Sobre o projeto
 
-[x] Listar Estoque: Exibe a lista completa de itens formatada em colunas (ID, Nome, Quantidade e Preço).
+O programa permite cadastrar, listar e consultar produtos de um estoque. Cada produto tem ID, nome, quantidade e preço. Os dados ficam gravados em `estoque.dat` em formato binário, portanto persistem entre execuções.
 
-[x] Persistência de Dados: Os dados salvos permanecem armazenados mesmo após fechar o programa.
+O objetivo é praticar, em C: structs, ponteiros, manipulação de arquivos, strings e leitura robusta de entrada.
 
-[x] Tratamento de Buffer: Limpeza de entrada de teclado (stdin) para leitura segura de strings.
+## Funcionalidades
 
-[x] Adicionar funcionalidade de Buscar Produto por ID
+- [x] Cadastrar produto
+- [x] Listar estoque em tabela
+- [x] Buscar produto por ID, exibindo o valor total em estoque
+- [x] Persistência em arquivo binário
+- [x] Tratamento de buffer e separador decimal
 
-🛠️ Tecnologias Utilizadas
-Linguagem C (C99)
+## Estrutura
 
-Manipulação de Arquivos (stdio.h): fopen, fread, fwrite, fclose
+`main.c` concentra o código: o tipo `Produto`, os auxiliares de leitura (`lerLinha`, `lerInteiro`, `lerFloat`), as funções de domínio (`adicionarProduto`, `listarProdutos`, `buscarProduto`) e o menu principal.
 
-Manipulação de Strings (string.h): strcspn
+`estoque.dat` guarda os registros como structs binárias. A leitura é sequencial com `fread`.
 
-Git & GitHub para controle de versão
+## Como executar
 
-💻 Como Executar o Projeto
-Pré-requisitos
-Ter um compilador C instalado no seu sistema (ex: gcc ou MinGW).
+Pré-requisito: gcc ou MinGW instalado.
 
-Passo a passo
-Clone o repositório:
-
-Bash
-git clone [https://github.com/GabrielMattos0204/gerenciador-estoque-c]
-Acesse a pasta do projeto:
-
-Bash
-cd gerenciador-estoque-c
-Compile o código fonte:
-
-Bash
-gcc -o estoque main.c
-Execute o programa:
-
-Linux / macOS:
-
-Bash
+```
+gcc -Wall -o estoque main.c
 ./estoque
-Windows:
+```
 
-DOS
-estoque.exe
+## Decisões de implementação
 
-📈 Próximos Passos (Roadmap)
-[ ] Adicionar funcionalidade de Buscar Produto por ID
+A entrada de texto não usa `scanf`. Cada campo lê a linha inteira com `fgets` e converte depois com `sscanf`. Isso evita que sobras no buffer desalinhem o menu — problema presente na versão anterior, em que o `getchar()` limpava apenas um caractere.
 
-[ ] Implementar Atualização de quantidade/preço de itens existentes
+O preço aceita vírgula ou ponto, convertendo a vírgula para ponto antes da conversão numérica.
 
-[ ] Implementar Exclusão de produtos do estoque
+## Roadmap
 
-[ ] Refatorar o código aplicando conceitos de modularização em múltiplos arquivos (.h e .c)
+- [x] Buscar produto por ID
+- [ ] Atualizar quantidade e preço
+- [ ] Excluir produto
+- [ ] Impedir cadastro com ID duplicado
+- [ ] Modularizar em múltiplos arquivos (.h e .c)
 
-👨‍💻 Sobre Mim
-Olá meu nome é Gabriel! Sou estudante do 4º semestre de Análise e Desenvolvimento de Sistemas (ADS), apaixonado por lógica de programação e linguagem C e Java. Busco minha primeira oportunidade como Estagiário de TI / Desenvolvimento.
+## Sobre mim
 
-E-mail: gabrielmattos99201@gmail.com
+Gabriel Mattos, estudante de ADS em Limeira, SP. Buscando a primeira oportunidade de estágio em TI.
+
+Contato: gabrielmattos99201@gmail.com

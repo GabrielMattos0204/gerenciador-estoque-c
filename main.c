@@ -9,6 +9,43 @@ typedef struct {
     float preco;
 } Produto;
 
+void lerLinha(char *destino, int tamanho) {
+    if (fgets(destino, tamanho, stdin) == NULL) {
+        destino[0] = '\0';
+        return;
+    }
+    destino[strcspn(destino, "\n")] = '\0';
+}
+
+int lerInteiro(const char *rotulo) {
+    char linha[64];
+    int valor;
+    while (1) {
+        printf("%s", rotulo);
+        lerLinha(linha, sizeof(linha));
+        if (sscanf(linha, "%d", &valor) == 1) {
+            return valor;
+        }
+        printf("Valor invalido. Tente novamente.\n");
+    }
+}
+
+float lerFloat(const char *rotulo) {
+    char linha[64];
+    float valor;
+    while (1) {
+        printf("%s", rotulo);
+        lerLinha(linha, sizeof(linha));
+        for (char *c = linha; *c != '\0'; c++) {
+            if (*c == ',') *c = '.';
+        }
+        if (sscanf(linha, "%f", &valor) == 1) {
+            return valor;
+        }
+        printf("Valor invalido. Tente novamente.\n");
+    }
+}
+
 void adicionarProduto() {
     FILE *arquivo = fopen("estoque.dat", "ab");
     if (arquivo == NULL) {
@@ -18,19 +55,11 @@ void adicionarProduto() {
 
     Produto p;
     printf("\n=== Cadastrar novo produto ===\n");
-    printf("ID: ");
-    scanf("%d", &p.id);
-    getchar(); //Limpa o buffer do teclado
-
+    p.id = lerInteiro("ID: ");
     printf("Nome: ");
-    fgets(p.nome, sizeof(p.nome), stdin);
-    p.nome[strcspn(p.nome, "\n")] = 0; //Remove a quebra de linha
-
-    printf("Quantidade: ");
-    scanf("%d", &p.quantidade);
-
-    printf("Preço(R$): ");
-    scanf("%f", &p.preco);
+    lerLinha(p.nome, sizeof(p.nome));
+    p.quantidade = lerInteiro("Quantidade: ");
+    p.preco = lerFloat("Preco(R$): ");
 
     fwrite(&p, sizeof(Produto), 1, arquivo);
     fclose(arquivo);
@@ -57,11 +86,46 @@ Produto p;
     fclose(arquivo);
 }
 
+void buscarProduto() {
+    FILE *arquivo = fopen("estoque.dat", "rb");
+    if (arquivo == NULL) {
+        printf("\nNenhum produto cadastrado ainda ou erro ao abrir arquivo.\n");
+        return;
+    }
+
+    int idBusca;
+    printf("\n=== Buscar produto por ID ===\n");
+    idBusca = lerInteiro("ID: ");
+
+    Produto p;
+    int encontrado = 0;
+
+    while (fread(&p, sizeof(Produto), 1, arquivo)) {
+        if (p.id == idBusca) {
+            encontrado = 1;
+            printf("\n--- PRODUTO ENCONTRADO ---\n");
+            printf("ID.........: %d\n", p.id);
+            printf("Nome.......: %s\n", p.nome);
+            printf("Quantidade.: %d\n", p.quantidade);
+            printf("Preco......: R$ %.2f\n", p.preco);
+            printf("Valor total: R$ %.2f\n", p.quantidade * p.preco);
+            break;
+        }
+    }
+
+    fclose(arquivo);
+
+    if (!encontrado) {
+        printf("\nNenhum produto com o ID %d foi encontrado.\n", idBusca);
+    }
+}
+
 void exibirMenu() {
     printf("\n=== GERENCIADOR DE ESTOQUE EM C ===\n");
     printf("ESCOLHA UMA DAS OPCOES A SEGUIR:\n");
     printf("\n1. ADICIONAR PRODUTO\n");
     printf("\n2. LISTAR PRODUTOS\n");
+    printf("\n3. BUSCAR PRODUTO POR ID\n");
     printf("\n0. SAIR\n");
     
 }
@@ -71,7 +135,7 @@ int main ()  {
     
     while (opcao != 0) {
         exibirMenu();
-        scanf("%d", &opcao); 
+        opcao = lerInteiro("Opcao: "); 
 
         switch (opcao) {
 
@@ -80,6 +144,9 @@ int main ()  {
                 break;
             case 2:
                 listarProdutos();
+                break;
+            case 3:
+                buscarProduto();
                 break;
             case 0: 
                 printf("\nSAINDO DO SISTEMA..\n");
