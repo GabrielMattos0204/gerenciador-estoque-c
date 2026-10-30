@@ -12,6 +12,8 @@ Projetado como parte do meu aprendizado prático no curso de Análise e Desenvol
 
 [x] Tratamento de Buffer: Limpeza de entrada de teclado (stdin) para leitura segura de strings.
 
+[x] Adicionar funcionalidade de Buscar Produto por ID
+
 🛠️ Tecnologias Utilizadas
 Linguagem C (C99)
 
